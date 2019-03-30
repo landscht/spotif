@@ -15,6 +15,32 @@ export default class Profil  {
 		<button class="precedent btn btn-outline-primary">Precedent</button>
 		<button class="suivant btn btn-outline-primary">Suivant</button>
         <p class="info_track"></p>
+        <h3>Vos artistes préférés du mois</h1>
+        <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Images</th>
+      <th scope="col">Nom</th>
+    </tr>
+  </thead>
+  <tbody class="artist_pref">
+    
+  </tbody>
+</table>
+<h3>Vos musiques préférées du mois</h3>
+<table class="table">
+<thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Images</th>
+    <th scope="col">Nom</th>
+  </tr>
+</thead>
+<tbody class="tracks_pref">
+  
+</tbody>
+</table>
         <h3>Vos playlists</h3>
         <table class="table">
   <thead class="thead-dark">
@@ -46,17 +72,51 @@ export default class Profil  {
         })
 
         $.ajax({
+            url: 'https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=3',
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${hash.access_token}`
+            },
+            success: (data) => {
+                console.log(data);
+                let insert = '';
+                let id = 1;
+                data['items'].forEach(element => {
+                    insert = insert + `<tr><th scope="row">${id}</th><td><img src="${element.images[0].url}" width="100px" height="100px"></td><td>${element.name}</td></tr>`;
+                    id++;
+                })
+                $('.artist_pref').html(insert);
+            }
+        })
+
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=3',
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${hash.access_token}`
+            },
+            success: (data) => {
+                console.log(data);
+                let insert = '';
+                let id = 1;
+                data['items'].forEach(element => {
+                    insert = insert + `<tr><th scope="row">${id}</th><td><img src="${element.album.images[0].url}" width="100px" height="100px"></td><td>${element.name}</td></tr>`;
+                    id++;
+                })
+                $('.tracks_pref').html(insert);
+            }
+        })
+
+        $.ajax({
             url: 'https://api.spotify.com/v1/me/playlists',
             type: 'GET',
             headers: {
                 'Authorization': `Bearer ${hash.access_token}`
             },
             success: (data) => {
-                console.log(data['items']);
                 let playlists = '';
                 let id = 1;
                 data['items'].forEach(element => {
-                    console.log(element.name);
                     playlists = playlists + `<tr><th scope="row">${id}</th><td><img src="${element.images[0].url}" width="100px" height="100px"></td><td>${element.name}</td></tr>`
                     id++;
                 });
@@ -82,8 +142,6 @@ export default class Profil  {
                 'Authorization': `Bearer ${hash.access_token}`
             },
             success: (data) => {
-                console.log(data);
-                console.log(`<img src="${data.images[0].url}">`)
                 $('.title').html(`Bonjour ${data.display_name}`);
                 $('image').html(`<img src="${data.images[0].url}">`);
             }
@@ -111,7 +169,6 @@ export default class Profil  {
         });
         
         $('.precedent').click((data) => {
-            console.log(this.access_token);
             $.ajax({
                 url: 'https://api.spotify.com/v1/me/player/previous',
                 type: 'POST',
@@ -126,7 +183,6 @@ export default class Profil  {
         });
         
         $('.suivant').click((data) => {
-            console.log(this.access_token);
             $.ajax({
                 url: 'https://api.spotify.com/v1/me/player/next',
                 type: 'POST',
@@ -151,7 +207,6 @@ export default class Profil  {
                 'Authorization': `Bearer ${hash.access_token}`
             },
             success: function(data) {
-                console.log(data);
                     $('.info_track').html(`Vous écoutez <a href="#" class="info">${data['item'].name}</a>`);
                     $('.info').click((data) => {
                         const info = new InfoTrack();

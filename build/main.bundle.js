@@ -270,7 +270,7 @@ function () {
 
     _defineProperty(this, "corps", void 0);
 
-    this.corps = "<h1>Spotif</h1><h2 class=\"title\"></h2>\n        <div class=\"image\"></div>\n\t\t<p class=\"test\"></p>\n\t\t<button type=\"button\" class=\"pause btn btn-outline-danger\">Pause</button>\n\t\t<button type=\"button\" class=\"play btn btn-outline-success\">Play</button>\n\t\t<button class=\"precedent btn btn-outline-primary\">Precedent</button>\n\t\t<button class=\"suivant btn btn-outline-primary\">Suivant</button>\n        <p class=\"info_track\"></p>\n        <h3>Vos playlists</h3>\n        <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">#</th>\n      <th scope=\"col\">Images</th>\n      <th scope=\"col\">Nom</th>\n      <th scope=\"col\">Supprimer</th>\n    </tr>\n  </thead>\n  <tbody class=\"playlist\">\n    \n  </tbody>\n</table>";
+    this.corps = "<h1>Spotif</h1><h2 class=\"title\"></h2>\n        <div class=\"image\"></div>\n\t\t<p class=\"test\"></p>\n\t\t<button type=\"button\" class=\"pause btn btn-outline-danger\">Pause</button>\n\t\t<button type=\"button\" class=\"play btn btn-outline-success\">Play</button>\n\t\t<button class=\"precedent btn btn-outline-primary\">Precedent</button>\n\t\t<button class=\"suivant btn btn-outline-primary\">Suivant</button>\n        <p class=\"info_track\"></p>\n        <h3>Vos artistes pr\xE9f\xE9r\xE9s du mois</h1>\n        <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">#</th>\n      <th scope=\"col\">Images</th>\n      <th scope=\"col\">Nom</th>\n    </tr>\n  </thead>\n  <tbody class=\"artist_pref\">\n    \n  </tbody>\n</table>\n<h3>Vos musiques pr\xE9f\xE9r\xE9es du mois</h3>\n<table class=\"table\">\n<thead class=\"thead-dark\">\n  <tr>\n    <th scope=\"col\">#</th>\n    <th scope=\"col\">Images</th>\n    <th scope=\"col\">Nom</th>\n  </tr>\n</thead>\n<tbody class=\"tracks_pref\">\n  \n</tbody>\n</table>\n        <h3>Vos playlists</h3>\n        <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">#</th>\n      <th scope=\"col\">Images</th>\n      <th scope=\"col\">Nom</th>\n      <th scope=\"col\">Supprimer</th>\n    </tr>\n  </thead>\n  <tbody class=\"playlist\">\n    \n  </tbody>\n</table>";
   }
 
   _createClass(Profil, [{
@@ -289,17 +289,49 @@ function () {
         type: 'GET'
       });
       jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+        url: 'https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=3',
+        type: 'GET',
+        headers: {
+          'Authorization': "Bearer ".concat(hash.access_token)
+        },
+        success: function success(data) {
+          console.log(data);
+          var insert = '';
+          var id = 1;
+          data['items'].forEach(function (element) {
+            insert = insert + "<tr><th scope=\"row\">".concat(id, "</th><td><img src=\"").concat(element.images[0].url, "\" width=\"100px\" height=\"100px\"></td><td>").concat(element.name, "</td></tr>");
+            id++;
+          });
+          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.artist_pref').html(insert);
+        }
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+        url: 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=3',
+        type: 'GET',
+        headers: {
+          'Authorization': "Bearer ".concat(hash.access_token)
+        },
+        success: function success(data) {
+          console.log(data);
+          var insert = '';
+          var id = 1;
+          data['items'].forEach(function (element) {
+            insert = insert + "<tr><th scope=\"row\">".concat(id, "</th><td><img src=\"").concat(element.album.images[0].url, "\" width=\"100px\" height=\"100px\"></td><td>").concat(element.name, "</td></tr>");
+            id++;
+          });
+          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.tracks_pref').html(insert);
+        }
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
         url: 'https://api.spotify.com/v1/me/playlists',
         type: 'GET',
         headers: {
           'Authorization': "Bearer ".concat(hash.access_token)
         },
         success: function success(data) {
-          console.log(data['items']);
           var playlists = '';
           var id = 1;
           data['items'].forEach(function (element) {
-            console.log(element.name);
             playlists = playlists + "<tr><th scope=\"row\">".concat(id, "</th><td><img src=\"").concat(element.images[0].url, "\" width=\"100px\" height=\"100px\"></td><td>").concat(element.name, "</td></tr>");
             id++;
           });
@@ -323,8 +355,6 @@ function () {
           'Authorization': "Bearer ".concat(hash.access_token)
         },
         success: function success(data) {
-          console.log(data);
-          console.log("<img src=\"".concat(data.images[0].url, "\">"));
           jquery__WEBPACK_IMPORTED_MODULE_2___default()('.title').html("Bonjour ".concat(data.display_name));
           jquery__WEBPACK_IMPORTED_MODULE_2___default()('image').html("<img src=\"".concat(data.images[0].url, "\">"));
         }
@@ -348,7 +378,6 @@ function () {
         });
       });
       jquery__WEBPACK_IMPORTED_MODULE_2___default()('.precedent').click(function (data) {
-        console.log(_this.access_token);
         jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
           url: 'https://api.spotify.com/v1/me/player/previous',
           type: 'POST',
@@ -361,7 +390,6 @@ function () {
         }); //refresh_titre();
       });
       jquery__WEBPACK_IMPORTED_MODULE_2___default()('.suivant').click(function (data) {
-        console.log(_this.access_token);
         jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
           url: 'https://api.spotify.com/v1/me/player/next',
           type: 'POST',
@@ -388,7 +416,6 @@ function () {
         success: function success(data) {
           var _this2 = this;
 
-          console.log(data);
           jquery__WEBPACK_IMPORTED_MODULE_2___default()('.info_track').html("Vous \xE9coutez <a href=\"#\" class=\"info\">".concat(data['item'].name, "</a>"));
           jquery__WEBPACK_IMPORTED_MODULE_2___default()('.info').click(function (data) {
             var info = new _InfoTrack__WEBPACK_IMPORTED_MODULE_1__["default"]();
@@ -511,14 +538,13 @@ function getHashParams() {
     hashParams[e[1]] = decodeURIComponent(e[2]);
   }
 
-  console.log(hashParams);
   return hashParams;
 }
 
 var hash = auth.getHashParams();
 
 if (hash.access_token === undefined) {
-  var scopes = 'user-read-private user-read-email user-modify-playback-state playlist-modify-public user-read-playback-state';
+  var scopes = 'user-read-private user-read-email user-modify-playback-state playlist-modify-public user-read-playback-state user-top-read';
   var url = "https://accounts.spotify.com/authorize?client_id=".concat(auth.client_id, "&redirect_uri=").concat(auth.redirect_uri, "&scope=").concat(scopes, "&response_type=token&state=123");
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.container').html('<h1>Se connecter à Spotif - test github</h1><button type="button" class="loggin btn btn-primary">Se connecter</button>');
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.loggin').click(function (data) {

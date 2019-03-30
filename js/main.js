@@ -13,14 +13,13 @@ function getHashParams() {
     while ( e = r.exec(q)) {
        hashParams[e[1]] = decodeURIComponent(e[2]);
     }
-    console.log(hashParams);
     return hashParams;
 }
 
 var hash = auth.getHashParams();
 
 if(hash.access_token === undefined) {
-    let scopes = 'user-read-private user-read-email user-modify-playback-state playlist-modify-public user-read-playback-state';
+    let scopes = 'user-read-private user-read-email user-modify-playback-state playlist-modify-public user-read-playback-state user-top-read';
     let url = `https://accounts.spotify.com/authorize?client_id=${auth.client_id}&redirect_uri=${auth.redirect_uri}&scope=${scopes}&response_type=token&state=123`
     $('.container').html('<h1>Se connecter à Spotif - test github</h1><button type="button" class="loggin btn btn-primary">Se connecter</button>');
     $('.loggin').click((data) => {
