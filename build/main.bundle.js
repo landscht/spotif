@@ -520,7 +520,7 @@ var hash = auth.getHashParams();
 if (hash.access_token === undefined) {
   var scopes = 'user-read-private user-read-email user-modify-playback-state playlist-modify-public user-read-playback-state';
   var url = "https://accounts.spotify.com/authorize?client_id=".concat(auth.client_id, "&redirect_uri=").concat(auth.redirect_uri, "&scope=").concat(scopes, "&response_type=token&state=123");
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.container').html('<h1>Se connecter à Spotif</h1><button type="button" class="loggin btn btn-primary">Se connecter</button>');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.container').html('<h1>Se connecter à Spotif - test github</h1><button type="button" class="loggin btn btn-primary">Se connecter</button>');
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.loggin').click(function (data) {
     window.location.replace(url);
   });
