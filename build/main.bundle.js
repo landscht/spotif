@@ -118,7 +118,7 @@ function () {
 
     this.client_id = '9b976141d3324f198766ee8e48aaadca';
     this.client_secret = '18e2cf36acbd4663b4e27c450aec82a0';
-    this.redirect_uri = 'http://localhost:8000';
+    this.redirect_uri = 'https://kopanol.github.io/spotif';
   }
 
   _createClass(Auth, [{
@@ -439,7 +439,7 @@ function () {
 
     this.client_id = '9b976141d3324f198766ee8e48aaadca';
     this.client_secret = '18e2cf36acbd4663b4e27c450aec82a0';
-    this.redirect_uri = 'http://localhost:8000';
+    this.redirect_uri = 'https://kopanol.github.io/spotif';
   }
 
   _createClass(Auth, [{
