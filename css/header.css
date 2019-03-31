@@ -1,3 +1,27 @@
+.bouton-controle {
+    margin-bottom: 10px;
+}
+
+.card-artist {
+    display: flex;
+
+    width: 2000px;
+}
+
+.card-tracks {
+    display: flex;
+
+    width: 2000px;
+}
+
+.card {
+    margin-right: 50px;
+}
+
+.card:hover {
+    transition-delay: 0,5s;
+    opacity: 0,5;
+}
 .header {
     position: relative;
     width: 100vw;	
@@ -73,13 +97,14 @@
       /* gradient overlay */
       linear-gradient(
         to bottom,
-        rgba(203, 53, 107, 0.6), /* #cb356b */
-        rgba(189, 63, 50, 0.5) /* #bd3f32 */
+        rgba(189, 130, 151, 0.6), /* #cb356b */
+        rgba(63, 49, 48, 0.5) /* #bd3f32 */
       ),
       /* bottom image */
       url('https://cdn.stocksnap.io/img-thumbs/960w/VPYPAS4FVT.jpg') no-repeat left top;
     background-size: cover;  
       z-index: 0; 
+      height: 500px;
   }
   #header1 .caption {
       text-align: center;
@@ -107,11 +132,12 @@
     linear-gradient(
       rgba(53, 92, 125, 0.8), /* #355c7d */
       rgba(108, 91, 123, 0.8), /* #6c5b7b */
-      rgba(192, 108, 123, 0.8) /* #c06c7b */
+      rgba(43, 33, 35, 0.8) /* #c06c7b */
     ),
-    url('https://cdn.stocksnap.io/img-thumbs/960w/LPPN6E2YK4.jpg') no-repeat left top;
+    url('../images/bg.jpg') no-repeat left top;
   background-size: cover;  
-	z-index: 0; /* bottom layout */
+    z-index: 0; /* bottom layout */
+    height: 1100px;
 }
 #header2 .caption {
 	z-index: 5; 
@@ -179,3 +205,45 @@
   body {
     overflow-x: hidden;
   }
+
+  #header3 {
+	background: #355c7d;  
+  background: 
+    linear-gradient(
+      to left,
+      rgba(214, 109, 117, 0.8), /* #d66d75 */
+      rgba(226, 149, 135, 0.7) /* #e29587 */
+    ),
+    url('../images/bg1.jpg') no-repeat left top;
+  background-size: cover;  
+    z-index: 0; /* bottom layout */
+    height: 1000px;
+}
+#header3 .right {
+	display: none;
+}
+#header3 .caption {
+	z-index: 5; 
+  text-align: center;
+  color: #fff;
+}
+#header3 .caption .title {
+	margin-bottom: 1.5rem;
+} 
+#header3 .caption .text {
+	margin-bottom: 1.5rem;
+} 
+#header3 .caption .action {
+	margin-bottom: 1rem;
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+/*=== Large devices (desktops, 992px and up) ===*/
+@media (min-width: 992px) {
+#header3 .caption {
+  text-align: left;
+}
+#header3 .right {
+  display: block;
+}
+}

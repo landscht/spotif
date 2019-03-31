@@ -270,7 +270,7 @@ function () {
 
     _defineProperty(this, "corps", void 0);
 
-    this.corps = "<h1>Spotif</h1><h2 class=\"title\"></h2>\n        <div class=\"image\"></div>\n\t\t<p class=\"test\"></p>\n\t\t<button type=\"button\" class=\"pause btn btn-outline-danger\">Pause</button>\n\t\t<button type=\"button\" class=\"play btn btn-outline-success\">Play</button>\n\t\t<button class=\"precedent btn btn-outline-primary\">Precedent</button>\n\t\t<button class=\"suivant btn btn-outline-primary\">Suivant</button>\n        <p class=\"info_track\"></p>\n        <h3>Vos artistes pr\xE9f\xE9r\xE9s du mois</h1>\n        <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">#</th>\n      <th scope=\"col\">Images</th>\n      <th scope=\"col\">Nom</th>\n    </tr>\n  </thead>\n  <tbody class=\"artist_pref\">\n    \n  </tbody>\n</table>\n<h3>Vos musiques pr\xE9f\xE9r\xE9es du mois</h3>\n<table class=\"table\">\n<thead class=\"thead-dark\">\n  <tr>\n    <th scope=\"col\">#</th>\n    <th scope=\"col\">Images</th>\n    <th scope=\"col\">Nom</th>\n  </tr>\n</thead>\n<tbody class=\"tracks_pref\">\n  \n</tbody>\n</table>\n        <h3>Vos playlists</h3>\n        <table class=\"table\">\n  <thead class=\"thead-dark\">\n    <tr>\n      <th scope=\"col\">#</th>\n      <th scope=\"col\">Images</th>\n      <th scope=\"col\">Nom</th>\n      <th scope=\"col\">Supprimer</th>\n    </tr>\n  </thead>\n  <tbody class=\"playlist\">\n    \n  </tbody>\n</table>";
+    this.corps = "\n        <header class=\"header\" id=\"header1\">\n            <div class=\"center\">\n                <div class=\"caption animated bounceInDown\">\n                    <h2 class=\"title name display-3\">Lecteur.</h2>\n                    <p class=\"text\">Controllez votre musique directement ici.</p>\n                    <p class=\"test\"></p>\n\t\t            <button type=\"button\" class=\"pause btn btn-outline-danger\">Pause</button>\n\t\t            <button type=\"button\" class=\"play btn btn-outline-success\">Play</button>\n\t\t            <button class=\"precedent btn btn-outline-primary\">Precedent</button>\n\t\t            <button class=\"suivant btn btn-outline-primary\">Suivant</button>\n                     <p class=\"info_track\"></p>\n                </div>\t\n            </div>\n            <!-- scroll-down -->\n            <i class=\"scroll fa fa-angle-double-down\"></i>\n        </header>\n        <!-- header #2 -->\n        <header class=\"header\" id=\"header2\">\n\t        <div class=\"left\">\n\t\t        <div class=\"caption\">\n\t\t\t        <h2 class=\"title display-3 animated bounceInLeft\">Vos artistes pr\xE9f\xE9r\xE9s</h2>\n            <p class=\"text animated bounceInLeft\">Retrouvez vos artistes pr\xE9f\xE9r\xE9s au cours de ce mois, des 6 derniers mois ou alors de cette ann\xE9e.</p>\n            <div class=\"btn-group btn-group-toggle bouton-controle\" data-toggle=\"buttons\">\n  <label class=\"btn btn-secondary active option-un-artist\">\n    <input type=\"radio\" name=\"options\" class=\"option-un-artist\" id=\"option1-artist\" autocomplete=\"off\" checked> 1 mois\n  </label>\n  <label class=\"btn btn-secondary option-deux-artist\">\n    <input type=\"radio\" name=\"options\" id=\"option2-artist\" autocomplete=\"off\"> 6 mois\n  </label>\n  <label class=\"btn btn-secondary option-trois-artist\">\n    <input type=\"radio\" name=\"options\" id=\"option3-artist\" autocomplete=\"off\"> 1 an\n  </label>\n</div>\n            <div class=\"container card-artist\">\n\n            </div>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>\n<!-- header #3 -->\n<header class=\"header\" id=\"header3\">\n\t<div class=\"left\">\n\t\t<div class=\"caption animated bounceInLeft\">\n\t\t\t<h2 class=\"title display-3\">Vos tracks pr\xE9f\xE9r\xE9es</h2>\n\t\t\t<p class=\"text\">Retrouvez vos tracks pr\xE9f\xE9r\xE9s au cours de ce mois, des 6 derniers mois ou alors de cette ann\xE9e.</p>\n            <div class=\"btn-group btn-group-toggle bouton-controle\" data-toggle=\"buttons\">\n            <label class=\"btn btn-secondary active option-un-track\">\n              <input type=\"radio\" name=\"options\" class=\"option-un-artist\" id=\"option1-artist\" autocomplete=\"off\" checked> 1 mois\n            </label>\n            <label class=\"btn btn-secondary option-deux-track\">\n              <input type=\"radio\" name=\"options\" id=\"option2-artist\" autocomplete=\"off\"> 6 mois\n            </label>\n            <label class=\"btn btn-secondary option-trois-track\">\n              <input type=\"radio\" name=\"options\" id=\"option3-artist\" autocomplete=\"off\"> 1 an\n            </label>\n          </div>\n            <div class=\"container card-tracks\">\n\n            </div>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>\n<div class=\"demo-more d-lg-flex justify-content-around footer\">\n<p><i class=\"fa fa-users\"></i> Spotif was created by Tony Landschoot le bg</p>\n\t<p><i class=\"fa fa-gift\"></i> my github <a href=\"https://github.com/kopanol\">kopanol</a></p></div>";
   }
 
   _createClass(Profil, [{
@@ -278,9 +278,10 @@ function () {
     value: function render() {
       var _this = this;
 
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()('body').html('');
       var auth = new _auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
       var hash = auth.getHashParams();
-      jquery__WEBPACK_IMPORTED_MODULE_2___default()('.container').html(this.corps);
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()('body').html(this.corps);
       console.log('ptn fait chier');
       console.log(hash.access_token);
       this.refresh_titre();
@@ -297,12 +298,15 @@ function () {
         success: function success(data) {
           console.log(data);
           var insert = '';
-          var id = 1;
+          data;
           data['items'].forEach(function (element) {
-            insert = insert + "<tr><th scope=\"row\">".concat(id, "</th><td><img src=\"").concat(element.images[0].url, "\" width=\"100px\" height=\"100px\"></td><td>").concat(element.name, "</td></tr>");
-            id++;
+            var genres = '';
+            element.genres.forEach(function (genre) {
+              genres = genres + " - ".concat(genre);
+            });
+            insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                    <img src=\"".concat(element.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                    <div class=\"card-body bg-dark\">\n                    <h5 class=\"card-title\">").concat(element.name, "</h5>\n                    <p class=\"card-text\">").concat(genres.substring(3), "</p>\n                  </div>\n                  <ul class=\"list-group list-group-flush bg-dark\">\n                    <li class=\"list-group-item bg-dark\">").concat(element.followers.total, " followers</li>\n                    <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                  </ul>\n                    </div>\n                  </div>");
           });
-          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.artist_pref').html(insert);
+          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-artist').html(insert);
         }
       });
       jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
@@ -316,26 +320,14 @@ function () {
           var insert = '';
           var id = 1;
           data['items'].forEach(function (element) {
-            insert = insert + "<tr><th scope=\"row\">".concat(id, "</th><td><img src=\"").concat(element.album.images[0].url, "\" width=\"100px\" height=\"100px\"></td><td>").concat(element.name, "</td></tr>");
+            var artists = '';
+            element.artists.forEach(function (artist) {
+              artists = artists + " - ".concat(artist.name);
+            });
+            insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                    <img src=\"".concat(element.album.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                    <div class=\"card-body bg-dark\">\n                    <h5 class=\"card-title\">").concat(element.name, "</h5>\n                    <p class=\"card-text\">par ").concat(artists.substring(3), "</p>\n                  </div>\n                  <ul class=\"list-group list-group-flush bg-dark\">\n                    <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                  </ul>\n                    </div>\n                  </div>");
             id++;
           });
-          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.tracks_pref').html(insert);
-        }
-      });
-      jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
-        url: 'https://api.spotify.com/v1/me/playlists',
-        type: 'GET',
-        headers: {
-          'Authorization': "Bearer ".concat(hash.access_token)
-        },
-        success: function success(data) {
-          var playlists = '';
-          var id = 1;
-          data['items'].forEach(function (element) {
-            playlists = playlists + "<tr><th scope=\"row\">".concat(id, "</th><td><img src=\"").concat(element.images[0].url, "\" width=\"100px\" height=\"100px\"></td><td>").concat(element.name, "</td></tr>");
-            id++;
-          });
-          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.playlist').html(playlists);
+          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-tracks').html(insert);
         }
       });
       jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
@@ -355,9 +347,147 @@ function () {
           'Authorization': "Bearer ".concat(hash.access_token)
         },
         success: function success(data) {
-          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.title').html("Bonjour ".concat(data.display_name));
+          jquery__WEBPACK_IMPORTED_MODULE_2___default()('.name').html("Bonjour ".concat(data.display_name));
           jquery__WEBPACK_IMPORTED_MODULE_2___default()('image').html("<img src=\"".concat(data.images[0].url, "\">"));
         }
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()('.option-un-artist').click(function (data) {
+        console.log('option 1');
+        jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+          url: 'https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=3',
+          type: 'GET',
+          headers: {
+            'Authorization': "Bearer ".concat(hash.access_token)
+          },
+          success: function success(data) {
+            console.log(data);
+            var insert = '';
+            data;
+            data['items'].forEach(function (element) {
+              var genres = '';
+              element.genres.forEach(function (genre) {
+                genres = genres + " - ".concat(genre);
+              });
+              insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                        <img src=\"".concat(element.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                        <div class=\"card-body bg-dark\">\n                        <h5 class=\"card-title\">").concat(element.name, "</h5>\n                        <p class=\"card-text\">").concat(genres.substring(3), "</p>\n                      </div>\n                      <ul class=\"list-group list-group-flush bg-dark\">\n                        <li class=\"list-group-item bg-dark\">").concat(element.followers.total, " followers</li>\n                        <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                      </ul>\n                        </div>\n                      </div>");
+            });
+            jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-artist').html(insert);
+          }
+        });
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()(".option-deux-artist").click(function (data) {
+        console.log('option 2');
+        jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+          url: 'https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=3',
+          type: 'GET',
+          headers: {
+            'Authorization': "Bearer ".concat(hash.access_token)
+          },
+          success: function success(data) {
+            console.log(data);
+            var insert = '';
+            data;
+            data['items'].forEach(function (element) {
+              var genres = '';
+              element.genres.forEach(function (genre) {
+                genres = genres + " - ".concat(genre);
+              });
+              insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                        <img src=\"".concat(element.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                        <div class=\"card-body bg-dark\">\n                        <h5 class=\"card-title\">").concat(element.name, "</h5>\n                        <p class=\"card-text\">").concat(genres.substring(3), "</p>\n                      </div>\n                      <ul class=\"list-group list-group-flush bg-dark\">\n                        <li class=\"list-group-item bg-dark\">").concat(element.followers.total, " followers</li>\n                        <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                      </ul>\n                        </div>\n                      </div>");
+            });
+            jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-artist').html(insert);
+          }
+        });
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()(".option-trois-artist").click(function (data) {
+        console.log('option 2');
+        jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+          url: 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=3',
+          type: 'GET',
+          headers: {
+            'Authorization': "Bearer ".concat(hash.access_token)
+          },
+          success: function success(data) {
+            console.log(data);
+            var insert = '';
+            data;
+            data['items'].forEach(function (element) {
+              var genres = '';
+              element.genres.forEach(function (genre) {
+                genres = genres + " - ".concat(genre);
+              });
+              insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                        <img src=\"".concat(element.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                        <div class=\"card-body bg-dark\">\n                        <h5 class=\"card-title\">").concat(element.name, "</h5>\n                        <p class=\"card-text\">").concat(genres.substring(3), "</p>\n                      </div>\n                      <ul class=\"list-group list-group-flush bg-dark\">\n                        <li class=\"list-group-item bg-dark\">").concat(element.followers.total, " followers</li>\n                        <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                      </ul>\n                        </div>\n                      </div>");
+            });
+            jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-artist').html(insert);
+          }
+        });
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()('.option-un-track').click(function (data) {
+        jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+          url: 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=3',
+          type: 'GET',
+          headers: {
+            'Authorization': "Bearer ".concat(hash.access_token)
+          },
+          success: function success(data) {
+            console.log(data);
+            var insert = '';
+            var id = 1;
+            data['items'].forEach(function (element) {
+              var artists = '';
+              element.artists.forEach(function (artist) {
+                artists = artists + " - ".concat(artist.name);
+              });
+              insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                        <img src=\"".concat(element.album.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                        <div class=\"card-body bg-dark\">\n                        <h5 class=\"card-title\">").concat(element.name, "</h5>\n                        <p class=\"card-text\">par ").concat(artists.substring(3), "</p>\n                      </div>\n                      <ul class=\"list-group list-group-flush bg-dark\">\n                        <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                      </ul>\n                        </div>\n                      </div>");
+              id++;
+            });
+            jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-tracks').html(insert);
+          }
+        });
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()('.option-deux-track').click(function (data) {
+        jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+          url: 'https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=3',
+          type: 'GET',
+          headers: {
+            'Authorization': "Bearer ".concat(hash.access_token)
+          },
+          success: function success(data) {
+            console.log(data);
+            var insert = '';
+            var id = 1;
+            data['items'].forEach(function (element) {
+              var artists = '';
+              element.artists.forEach(function (artist) {
+                artists = artists + " - ".concat(artist.name);
+              });
+              insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                        <img src=\"".concat(element.album.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                        <div class=\"card-body bg-dark\">\n                        <h5 class=\"card-title\">").concat(element.name, "</h5>\n                        <p class=\"card-text\">par ").concat(artists.substring(3), "</p>\n                      </div>\n                      <ul class=\"list-group list-group-flush bg-dark\">\n                        <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                      </ul>\n                        </div>\n                      </div>");
+              id++;
+            });
+            jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-tracks').html(insert);
+          }
+        });
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_2___default()('.option-trois-track').click(function (data) {
+        jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
+          url: 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=3',
+          type: 'GET',
+          headers: {
+            'Authorization': "Bearer ".concat(hash.access_token)
+          },
+          success: function success(data) {
+            console.log(data);
+            var insert = '';
+            var id = 1;
+            data['items'].forEach(function (element) {
+              var artists = '';
+              element.artists.forEach(function (artist) {
+                artists = artists + " - ".concat(artist.name);
+              });
+              insert = insert + "<div class=\"card bg-dark\" style=\"width: 18rem;\">\n                        <img src=\"".concat(element.album.images[0].url, "\" class=\"card-img-top\" alt=\"").concat(element.name, "\">\n                        <div class=\"card-body bg-dark\">\n                        <h5 class=\"card-title\">").concat(element.name, "</h5>\n                        <p class=\"card-text\">par ").concat(artists.substring(3), "</p>\n                      </div>\n                      <ul class=\"list-group list-group-flush bg-dark\">\n                        <li class=\"list-group-item bg-dark\">").concat(element.popularity, " \xE8me</li>\n                      </ul>\n                        </div>\n                      </div>");
+              id++;
+            });
+            jquery__WEBPACK_IMPORTED_MODULE_2___default()('.card-tracks').html(insert);
+          }
+        });
       });
       jquery__WEBPACK_IMPORTED_MODULE_2___default()('.pause').click(function (data) {
         jquery__WEBPACK_IMPORTED_MODULE_2___default.a.ajax({
@@ -548,7 +678,7 @@ if (hash.access_token === undefined) {
   var url = "https://accounts.spotify.com/authorize?client_id=".concat(auth.client_id, "&redirect_uri=").concat(auth.redirect_uri, "&scope=").concat(scopes, "&response_type=token&state=123");
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#header1').html("\n\t<div class=\"center\">\n\t\t<div class=\"caption animated bounceInDown\">\n\t\t\t<h2 class=\"title display-3\">Spotif.</h2>\n\t\t\t<p class=\"text\">Ici, retrouvez une autre fa\xE7on de g\xE9rer votre musique. Acc\xE8der \xE0 vos playlist et vos titres favories!</p>\t\n\t\t</div>\t\n\t</div>\n\t<!-- scroll-down -->\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n");
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('#header2').html("\n\t<div class=\"left\">\n\t\t<div class=\"caption\">\n\t\t\t<h2 class=\"title display-3 animated bounceInLeft\">Connectez vous.</h2>\n\t\t\t<p class=\"text animated bounceInLeft\">Spotif collecte vos donn\xE9es directement via l'api Spotify, seules les donn\xE9es n\xE9cessaire sont collect\xE9es et gard\xE9es. <a href=\"https://developer.spotify.com/discover/\">En savoir plus.</a></p>\n\t\t\t<button class=\"loggin btn btn-success\">Se connecter avec Spotify</button>\n\t\t</div>\t\n\t</div>\n    <i class=\"scroll fa fa-angle-double-down\"></i>");
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.footer').html("\n\t<p><i class=\"fa fa-users\"></i> Spotif was created by Tony Landschoot</p>\n\t<p><i class=\"fa fa-gift\"></i> my github <a href=\"https://github.com/kopanol\">kopanol</a></p>");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.footer').html("\n\t<p><i class=\"fa fa-users\"></i> Spotif was created by Tony Landschoot le bg</p>\n\t<p><i class=\"fa fa-gift\"></i> my github <a href=\"https://github.com/kopanol\">kopanol</a></p>");
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.loggin').click(function (data) {
     window.location.replace(url);
   });
