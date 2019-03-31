@@ -1,6 +1,7 @@
 import Auth from "./auth";
 import InfoTrack from "./InfoTrack";
 import $ from 'jquery';
+import NavBar from "./NavBar";
 
 export default class Profil  {
 
@@ -8,6 +9,9 @@ export default class Profil  {
 
     constructor() {
         this.corps = `
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    	</nav>
         <header class="header" id="header1">
             <div class="center">
                 <div class="caption animated bounceInDown">
@@ -78,10 +82,12 @@ export default class Profil  {
     }
 
     render() {
+        const nav = new NavBar();
         $('body').html('');
         const auth = new Auth();
         var hash = auth.getHashParams();
         $('body').html(this.corps);
+        nav.render();
         console.log('ptn fait chier');
         console.log(hash.access_token);
         this.refresh_titre();

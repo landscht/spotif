@@ -118,7 +118,7 @@ function () {
 
     this.client_id = '9b976141d3324f198766ee8e48aaadca';
     this.client_secret = '18e2cf36acbd4663b4e27c450aec82a0';
-    this.redirect_uri = 'https://kopanol.github.io/spotif';
+    this.redirect_uri = 'http://localhost:8000';
   }
 
   _createClass(Auth, [{
@@ -155,6 +155,112 @@ function () {
 
   return Auth;
 }();
+
+
+
+/***/ }),
+
+/***/ "./js/Hue.js":
+/*!*******************!*\
+  !*** ./js/Hue.js ***!
+  \*******************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Hue; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _NavBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavBar */ "./js/NavBar.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var Hue =
+/*#__PURE__*/
+function () {
+  function Hue() {
+    _classCallCheck(this, Hue);
+
+    _defineProperty(this, "corps", void 0);
+
+    this.corps = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n\n    \t</nav>\n        <header class=\"header\" id=\"header1\">\n            <div class=\"center\">\n                <div class=\"caption animated bounceInDown\">\n                    <h2 class=\"title name display-3\">Philips Hue</h2>\n                    <p class=\"text\">Bienvenue dans l'int\xE9grateur philips hue. Changer la couleur de vos appareils Philips hue en fonction de la musique en cours.</p>\n                    <p class=\"text\">Commen\xE7ons.</p>\n                </div>\t\n            </div>\n            <!-- scroll-down -->\n            <i class=\"scroll fa fa-angle-double-down\"></i>\n        </header>\n        <!-- header #2 -->\n        <header class=\"header\" id=\"header2\">\n\t        <div class=\"left\">\n\t\t        <div class=\"caption\">\n\t\t\t        <h2 class=\"title display-3 animated bounceInLeft\">Recherche des ponts hue.</h2>\n            <p class=\"text animated bounceInLeft\">Selectionnez votre pont hue dans la liste.</p>\n            <ul class=\"list-group bg-dark list-pont\">\n          </ul>\n          <button class=\"btn btn-success allumer\">Allumer lumi\xE8re 1</button>\n          <button class=\"btn btn-danger eteindre\">Eteindre lumi\xE8re 1</button>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>";
+  }
+
+  _createClass(Hue, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var nav = new _NavBar__WEBPACK_IMPORTED_MODULE_1__["default"]();
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').html('');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').html(this.corps);
+      nav.render();
+      var hue = jsHue();
+      hue.discover().then(function (bridges) {
+        if (bridges.length === 0) {
+          console.log('No bridges found. :(');
+        } else {
+          var ponts = '';
+          var id = 1;
+          bridges.forEach(function (b) {
+            console.log(b);
+            console.log('Pont trouvé à ladresse %s.', b.internalipaddress);
+            ponts = ponts + "<a href=\"#\" class=\"pont".concat(id, "\"><li class=\"list-group-item bg-dark pont").concat(id, "\"><img src=\"../images/devicesBridgesV2.svg\">").concat(b.internalipaddress, "</li></a>");
+            console.log("pont".concat(id));
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-pont').html(ponts);
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()(".pont".concat(id)).click(function (data) {
+              event.preventDefault();
+              console.log("je clique sur ".concat(b.internalipaddress));
+              var bridge = hue.bridge(b.internalipaddress); // create user account (requires link button to be pressed)
+
+              bridge.createUser('myApp#testdevice').then(function (data) {
+                // extract bridge-generated username from returned data
+                var username = data[0].success.username;
+                console.log('New username:', username); // instantiate user object with username
+
+                _this.user = bridge.user(username);
+                console.log(_this.user);
+              });
+              return false;
+            });
+          });
+        }
+      }).catch(function (e) {
+        return console.log('Error finding bridges', e);
+      });
+      console.log(this.user);
+      console.log(hue.bridge('192.168.0.13'));
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.allumer').click(function (data) {
+        console.log('allumer');
+        console.log(_this.user);
+
+        _this.user.setLightState(1, {
+          on: true
+        });
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.eteindre').click(function (data) {
+        console.log('eteindre');
+
+        _this.user.setLightState(1, {
+          on: false
+        });
+      });
+    }
+  }]);
+
+  return Hue;
+}();
+
+_defineProperty(Hue, "user", void 0);
 
 
 
@@ -236,6 +342,69 @@ function () {
 
 /***/ }),
 
+/***/ "./js/NavBar.js":
+/*!**********************!*\
+  !*** ./js/NavBar.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Hue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Hue */ "./js/Hue.js");
+/* harmony import */ var _Profil__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Profil */ "./js/Profil.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var _default =
+/*#__PURE__*/
+function () {
+  function _default() {
+    _classCallCheck(this, _default);
+
+    _defineProperty(this, "corps", void 0);
+
+    this.corps = "<a class=\"navbar-brand profil\" href=\"#\">Spotif</a>\n        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavAltMarkup\" aria-controls=\"navbarNavAltMarkup\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n          <span class=\"navbar-toggler-icon\"></span>\n        </button>\n        <div class=\"collapse navbar-collapse\" id=\"navbarNavAltMarkup\">\n          <div class=\"navbar-nav\">\n            <a class=\"nav-item nav-link hue\" href=\"#\">Philips Hue<img src=\"../images/devicesBridgesV2.svg\"></a>\n            </div>\n        </div>";
+  }
+
+  _createClass(_default, [{
+    key: "render",
+    value: function render() {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.navbar').html(this.corps);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(".hue").click(function (event) {
+        event.preventDefault();
+        var hue = new _Hue__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        hue.render();
+        return false;
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(".profil").click(function (event) {
+        event.preventDefault();
+        var profil = new _Profil__WEBPACK_IMPORTED_MODULE_2__["default"]();
+        profil.render();
+        return false;
+      });
+    }
+  }]);
+
+  return _default;
+}();
+
+
+
+/***/ }),
+
 /***/ "./js/Profil.js":
 /*!**********************!*\
   !*** ./js/Profil.js ***!
@@ -250,6 +419,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InfoTrack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InfoTrack */ "./js/InfoTrack.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _NavBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NavBar */ "./js/NavBar.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -257,6 +427,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -270,7 +441,7 @@ function () {
 
     _defineProperty(this, "corps", void 0);
 
-    this.corps = "\n        <header class=\"header\" id=\"header1\">\n            <div class=\"center\">\n                <div class=\"caption animated bounceInDown\">\n                    <h2 class=\"title name display-3\">Lecteur.</h2>\n                    <p class=\"text\">Controllez votre musique directement ici.</p>\n                    <p class=\"test\"></p>\n\t\t            <button type=\"button\" class=\"pause btn btn-outline-danger\">Pause</button>\n\t\t            <button type=\"button\" class=\"play btn btn-outline-success\">Play</button>\n\t\t            <button class=\"precedent btn btn-outline-primary\">Precedent</button>\n\t\t            <button class=\"suivant btn btn-outline-primary\">Suivant</button>\n                     <p class=\"info_track\"></p>\n                </div>\t\n            </div>\n            <!-- scroll-down -->\n            <i class=\"scroll fa fa-angle-double-down\"></i>\n        </header>\n        <!-- header #2 -->\n        <header class=\"header\" id=\"header2\">\n\t        <div class=\"left\">\n\t\t        <div class=\"caption\">\n\t\t\t        <h2 class=\"title display-3 animated bounceInLeft\">Vos artistes pr\xE9f\xE9r\xE9s</h2>\n            <p class=\"text animated bounceInLeft\">Retrouvez vos artistes pr\xE9f\xE9r\xE9s au cours de ce mois, des 6 derniers mois ou alors de cette ann\xE9e.</p>\n            <div class=\"btn-group btn-group-toggle bouton-controle\" data-toggle=\"buttons\">\n  <label class=\"btn btn-secondary active option-un-artist\">\n    <input type=\"radio\" name=\"options\" class=\"option-un-artist\" id=\"option1-artist\" autocomplete=\"off\" checked> 1 mois\n  </label>\n  <label class=\"btn btn-secondary option-deux-artist\">\n    <input type=\"radio\" name=\"options\" id=\"option2-artist\" autocomplete=\"off\"> 6 mois\n  </label>\n  <label class=\"btn btn-secondary option-trois-artist\">\n    <input type=\"radio\" name=\"options\" id=\"option3-artist\" autocomplete=\"off\"> 1 an\n  </label>\n</div>\n            <div class=\"container card-artist\">\n\n            </div>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>\n<!-- header #3 -->\n<header class=\"header\" id=\"header3\">\n\t<div class=\"left\">\n\t\t<div class=\"caption animated bounceInLeft\">\n\t\t\t<h2 class=\"title display-3\">Vos tracks pr\xE9f\xE9r\xE9es</h2>\n\t\t\t<p class=\"text\">Retrouvez vos tracks pr\xE9f\xE9r\xE9s au cours de ce mois, des 6 derniers mois ou alors de cette ann\xE9e.</p>\n            <div class=\"btn-group btn-group-toggle bouton-controle\" data-toggle=\"buttons\">\n            <label class=\"btn btn-secondary active option-un-track\">\n              <input type=\"radio\" name=\"options\" class=\"option-un-artist\" id=\"option1-artist\" autocomplete=\"off\" checked> 1 mois\n            </label>\n            <label class=\"btn btn-secondary option-deux-track\">\n              <input type=\"radio\" name=\"options\" id=\"option2-artist\" autocomplete=\"off\"> 6 mois\n            </label>\n            <label class=\"btn btn-secondary option-trois-track\">\n              <input type=\"radio\" name=\"options\" id=\"option3-artist\" autocomplete=\"off\"> 1 an\n            </label>\n          </div>\n            <div class=\"container card-tracks\">\n\n            </div>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>\n<div class=\"demo-more d-lg-flex justify-content-around footer\">\n<p><i class=\"fa fa-users\"></i> Spotif was created by Tony Landschoot le bg</p>\n\t<p><i class=\"fa fa-gift\"></i> my github <a href=\"https://github.com/kopanol\">kopanol</a></p></div>";
+    this.corps = "\n        <nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n\n    \t</nav>\n        <header class=\"header\" id=\"header1\">\n            <div class=\"center\">\n                <div class=\"caption animated bounceInDown\">\n                    <h2 class=\"title name display-3\">Lecteur.</h2>\n                    <p class=\"text\">Controllez votre musique directement ici.</p>\n                    <p class=\"test\"></p>\n\t\t            <button type=\"button\" class=\"pause btn btn-outline-danger\">Pause</button>\n\t\t            <button type=\"button\" class=\"play btn btn-outline-success\">Play</button>\n\t\t            <button class=\"precedent btn btn-outline-primary\">Precedent</button>\n\t\t            <button class=\"suivant btn btn-outline-primary\">Suivant</button>\n                     <p class=\"info_track\"></p>\n                </div>\t\n            </div>\n            <!-- scroll-down -->\n            <i class=\"scroll fa fa-angle-double-down\"></i>\n        </header>\n        <!-- header #2 -->\n        <header class=\"header\" id=\"header2\">\n\t        <div class=\"left\">\n\t\t        <div class=\"caption\">\n\t\t\t        <h2 class=\"title display-3 animated bounceInLeft\">Vos artistes pr\xE9f\xE9r\xE9s</h2>\n            <p class=\"text animated bounceInLeft\">Retrouvez vos artistes pr\xE9f\xE9r\xE9s au cours de ce mois, des 6 derniers mois ou alors de cette ann\xE9e.</p>\n            <div class=\"btn-group btn-group-toggle bouton-controle\" data-toggle=\"buttons\">\n  <label class=\"btn btn-secondary active option-un-artist\">\n    <input type=\"radio\" name=\"options\" class=\"option-un-artist\" id=\"option1-artist\" autocomplete=\"off\" checked> 1 mois\n  </label>\n  <label class=\"btn btn-secondary option-deux-artist\">\n    <input type=\"radio\" name=\"options\" id=\"option2-artist\" autocomplete=\"off\"> 6 mois\n  </label>\n  <label class=\"btn btn-secondary option-trois-artist\">\n    <input type=\"radio\" name=\"options\" id=\"option3-artist\" autocomplete=\"off\"> 1 an\n  </label>\n</div>\n            <div class=\"container card-artist\">\n\n            </div>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>\n<!-- header #3 -->\n<header class=\"header\" id=\"header3\">\n\t<div class=\"left\">\n\t\t<div class=\"caption animated bounceInLeft\">\n\t\t\t<h2 class=\"title display-3\">Vos tracks pr\xE9f\xE9r\xE9es</h2>\n\t\t\t<p class=\"text\">Retrouvez vos tracks pr\xE9f\xE9r\xE9s au cours de ce mois, des 6 derniers mois ou alors de cette ann\xE9e.</p>\n            <div class=\"btn-group btn-group-toggle bouton-controle\" data-toggle=\"buttons\">\n            <label class=\"btn btn-secondary active option-un-track\">\n              <input type=\"radio\" name=\"options\" class=\"option-un-artist\" id=\"option1-artist\" autocomplete=\"off\" checked> 1 mois\n            </label>\n            <label class=\"btn btn-secondary option-deux-track\">\n              <input type=\"radio\" name=\"options\" id=\"option2-artist\" autocomplete=\"off\"> 6 mois\n            </label>\n            <label class=\"btn btn-secondary option-trois-track\">\n              <input type=\"radio\" name=\"options\" id=\"option3-artist\" autocomplete=\"off\"> 1 an\n            </label>\n          </div>\n            <div class=\"container card-tracks\">\n\n            </div>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>\n<div class=\"demo-more d-lg-flex justify-content-around footer\">\n<p><i class=\"fa fa-users\"></i> Spotif was created by Tony Landschoot le bg</p>\n\t<p><i class=\"fa fa-gift\"></i> my github <a href=\"https://github.com/kopanol\">kopanol</a></p></div>";
   }
 
   _createClass(Profil, [{
@@ -278,10 +449,12 @@ function () {
     value: function render() {
       var _this = this;
 
+      var nav = new _NavBar__WEBPACK_IMPORTED_MODULE_3__["default"]();
       jquery__WEBPACK_IMPORTED_MODULE_2___default()('body').html('');
       var auth = new _auth__WEBPACK_IMPORTED_MODULE_0__["default"]();
       var hash = auth.getHashParams();
       jquery__WEBPACK_IMPORTED_MODULE_2___default()('body').html(this.corps);
+      nav.render();
       console.log('ptn fait chier');
       console.log(hash.access_token);
       this.refresh_titre();
@@ -596,7 +769,7 @@ function () {
 
     this.client_id = '9b976141d3324f198766ee8e48aaadca';
     this.client_secret = '18e2cf36acbd4663b4e27c450aec82a0';
-    this.redirect_uri = 'https://kopanol.github.io/spotif';
+    this.redirect_uri = 'http://localhost:8000';
   }
 
   _createClass(Auth, [{
