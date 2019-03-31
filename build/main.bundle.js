@@ -118,7 +118,7 @@ function () {
 
     this.client_id = '9b976141d3324f198766ee8e48aaadca';
     this.client_secret = '18e2cf36acbd4663b4e27c450aec82a0';
-    this.redirect_uri = 'http://localhost:8000';
+    this.redirect_uri = 'https://kopanol.github.io/spotif';
   }
 
   _createClass(Auth, [{
@@ -192,7 +192,7 @@ function () {
 
     _defineProperty(this, "corps", void 0);
 
-    this.corps = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n\n    \t</nav>\n        <header class=\"header\" id=\"header1\">\n            <div class=\"center\">\n                <div class=\"caption animated bounceInDown\">\n                    <h2 class=\"title name display-3\">Philips Hue</h2>\n                    <p class=\"text\">Bienvenue dans l'int\xE9grateur philips hue. Changer la couleur de vos appareils Philips hue en fonction de la musique en cours.</p>\n                    <p class=\"text\">Commen\xE7ons.</p>\n                </div>\t\n            </div>\n            <!-- scroll-down -->\n            <i class=\"scroll fa fa-angle-double-down\"></i>\n        </header>\n        <!-- header #2 -->\n        <header class=\"header\" id=\"header2\">\n\t        <div class=\"left\">\n\t\t        <div class=\"caption\">\n\t\t\t        <h2 class=\"title display-3 animated bounceInLeft\">Recherche des ponts hue.</h2>\n            <p class=\"text animated bounceInLeft\">Selectionnez votre pont hue dans la liste.</p>\n            <ul class=\"list-group bg-dark list-pont\">\n          </ul>\n          <button class=\"btn btn-success allumer\">Allumer lumi\xE8re 1</button>\n          <button class=\"btn btn-danger eteindre\">Eteindre lumi\xE8re 1</button>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>";
+    this.corps = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n\n    \t</nav>\n        <header class=\"header\" id=\"header1\">\n            <div class=\"center\">\n                <div class=\"caption animated bounceInDown\">\n                    <h2 class=\"title name display-3\">Philips Hue</h2>\n                    <p class=\"text\">Bienvenue dans l'int\xE9grateur philips hue. Changer la couleur de vos appareils Philips hue en fonction de la musique en cours.</p>\n                    <p class=\"text\">Commen\xE7ons.</p>\n                </div>\t\n            </div>\n            <!-- scroll-down -->\n            <i class=\"scroll fa fa-angle-double-down\"></i>\n        </header>\n        <!-- header #2 -->\n        <header class=\"header\" id=\"header2\">\n\t        <div class=\"left\">\n\t\t        <div class=\"caption\">\n\t\t\t        <h2 class=\"title display-3 animated bounceInLeft\">Recherche des ponts hue.</h2>\n            <p class=\"text animated bounceInLeft\">Selectionnez votre pont hue dans la liste.</p>\n            <ul class=\"list-group bg-dark list-pont\">\n          </ul>\n          <button class=\"btn btn-success allumer\">Allumer lumi\xE8re 1</button>\n          <button class=\"btn btn-danger eteindre\">Eteindre lumi\xE8re 1</button>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>\n<header class=\"header\" id=\"header3\">\n\t<div class=\"left\">\n\t\t<div class=\"caption animated bounceInLeft\">\n\t\t\t<h2 class=\"title display-3\">Vos \xE9quipements</h2>\n\t\t\t<p class=\"text\">Retrouvez vos \xE9quipement, controllez vos lampes et activez la synchronisation Spotif.</p>\n            <ul class=\"list-group bg-dark list-light\">\n          </ul>\n\t\t</div>\t\n\t</div>\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n</header>";
   }
 
   _createClass(Hue, [{
@@ -206,6 +206,8 @@ function () {
       nav.render();
       var hue = jsHue();
       hue.discover().then(function (bridges) {
+        console.log(bridges);
+
         if (bridges.length === 0) {
           console.log('No bridges found. :(');
         } else {
@@ -219,7 +221,8 @@ function () {
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-pont').html(ponts);
             jquery__WEBPACK_IMPORTED_MODULE_0___default()(".pont".concat(id)).click(function (data) {
               event.preventDefault();
-              console.log("je clique sur ".concat(b.internalipaddress));
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()(".pont".concat(id)).html("<li class=\"list-group-item bg-dark pont".concat(id, "\"><img src=\"../images/devicesBridgesV2.svg\">Appuyez sur le bouton de votre pont et r\xE9appuyer ici</li>"));
+              console.log("je clique sur ".concat(b.internalipaddress, " mdr"));
               var bridge = hue.bridge(b.internalipaddress); // create user account (requires link button to be pressed)
 
               bridge.createUser('myApp#testdevice').then(function (data) {
@@ -228,7 +231,42 @@ function () {
                 console.log('New username:', username); // instantiate user object with username
 
                 _this.user = bridge.user(username);
+                jquery__WEBPACK_IMPORTED_MODULE_0___default()(".pont".concat(id)).html("<li class=\"list-group-item bg-dark pont".concat(id, "\"><img src=\"../images/devicesBridgesV2.svg\">Connect\xE9 \xE0 ").concat(b.internalipaddress, "</li>"));
                 console.log(_this.user);
+
+                _this.user.getLights().then(function (lights) {
+                  var ligh = '';
+                  var id_light = 1;
+                  Object.getOwnPropertyNames(lights).forEach(function (key) {
+                    var light = lights[key];
+                    console.log(light);
+                    ligh = ligh + "<li class=\"list-group-item bg-dark\">".concat(light.name, " <button class=\"btn btn-success allumer").concat(id_light, "\">Allumer</button>\n                                    <button class=\"btn btn-danger eteindre").concat(id_light, "\">Eteindre</button>");
+                    console.log("allumer".concat(id_light));
+                    id_light++;
+                  });
+                  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.list-light').html(ligh);
+                  id_light = 1;
+                  Object.getOwnPropertyNames(lights).forEach(function (key) {
+                    console.log("allumer".concat(id_light));
+                    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".allumer".concat(id_light)).click(function (data) {
+                      console.log('allumer');
+                      console.log(_this.user);
+                      console.log(id_light);
+
+                      _this.user.setLightState(id_light, {
+                        on: true
+                      });
+                    });
+                    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".eteindre".concat(id_light)).click(function (data) {
+                      console.log('eteindre');
+
+                      _this.user.setLightState(id_light, {
+                        on: false
+                      });
+                    });
+                    id_light++;
+                  });
+                });
               });
               return false;
             });
@@ -239,21 +277,6 @@ function () {
       });
       console.log(this.user);
       console.log(hue.bridge('192.168.0.13'));
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.allumer').click(function (data) {
-        console.log('allumer');
-        console.log(_this.user);
-
-        _this.user.setLightState(1, {
-          on: true
-        });
-      });
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.eteindre').click(function (data) {
-        console.log('eteindre');
-
-        _this.user.setLightState(1, {
-          on: false
-        });
-      });
     }
   }]);
 
@@ -769,7 +792,7 @@ function () {
 
     this.client_id = '9b976141d3324f198766ee8e48aaadca';
     this.client_secret = '18e2cf36acbd4663b4e27c450aec82a0';
-    this.redirect_uri = 'http://localhost:8000';
+    this.redirect_uri = 'https://kopanol.github.io/spotif';
   }
 
   _createClass(Auth, [{

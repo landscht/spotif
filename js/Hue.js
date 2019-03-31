@@ -34,6 +34,17 @@ export default class Hue {
 		</div>	
 	</div>
 	<i class="scroll fa fa-angle-double-down"></i>
+</header>
+<header class="header" id="header3">
+	<div class="left">
+		<div class="caption animated bounceInLeft">
+			<h2 class="title display-3">Vos équipements</h2>
+			<p class="text">Retrouvez vos équipement, controllez vos lampes et activez la synchronisation Spotif.</p>
+            <ul class="list-group bg-dark list-light">
+          </ul>
+		</div>	
+	</div>
+	<i class="scroll fa fa-angle-double-down"></i>
 </header>`;
     }
 
@@ -45,6 +56,7 @@ export default class Hue {
 
         var hue = jsHue();
         hue.discover().then(bridges => {
+            console.log(bridges);
             if(bridges.length === 0) {
                 console.log('No bridges found. :(');
             }
@@ -59,7 +71,8 @@ export default class Hue {
                     $('.list-pont').html(ponts);
                     $(`.pont${id}`).click((data) => {
                         event.preventDefault();
-                        console.log(`je clique sur ${b.internalipaddress}`);
+                        $(`.pont${id}`).html(`<li class="list-group-item bg-dark pont${id}"><img src="../images/devicesBridgesV2.svg">Appuyez sur le bouton de votre pont et réappuyer ici</li>`)
+                        console.log(`je clique sur ${b.internalipaddress} mdr`);
                         var bridge = hue.bridge(b.internalipaddress);
 
                         // create user account (requires link button to be pressed)
@@ -71,7 +84,37 @@ export default class Hue {
 
                             // instantiate user object with username
                              this.user = bridge.user(username);
+                             $(`.pont${id}`).html(`<li class="list-group-item bg-dark pont${id}"><img src="../images/devicesBridgesV2.svg">Connecté à ${b.internalipaddress}</li>`);
                              console.log(this.user);
+                            this.user.getLights().then(lights => {
+                                let ligh = '';
+                                let id_light = 1;
+                                Object.getOwnPropertyNames(lights).forEach((key) => {
+                                    var light = lights[key];
+                                    console.log(light);
+                                    ligh = ligh + `<li class="list-group-item bg-dark">${light.name} <button class="btn btn-success allumer${id_light}">Allumer</button>
+                                    <button class="btn btn-danger eteindre${id_light}">Eteindre</button>`;
+                                    
+                                    console.log(`allumer${id_light}`);
+                                    id_light++;
+                                  });
+                                  $('.list-light').html(ligh);
+                                  id_light = 1;
+                                Object.getOwnPropertyNames(lights).forEach((key) => {
+                                    console.log(`allumer${id_light}`);
+                                  $(`.allumer${id_light}`).click((data) => {
+                                    console.log('allumer');
+                                    console.log(this.user);
+                                    console.log(id_light);
+                                    this.user.setLightState(id_light, { on: true });
+                                    })
+                                    $(`.eteindre${id_light}`).click((data) => {
+                                        console.log('eteindre');
+                                        this.user.setLightState(id_light, { on: false });
+                                    })
+                                    id_light++;
+                                });
+                            })
                         });
                         return false;
                     })
@@ -81,15 +124,7 @@ export default class Hue {
         }).catch(e => console.log('Error finding bridges', e));
         console.log(this.user);
         console.log(hue.bridge('192.168.0.13')) 
-        $('.allumer').click((data) => {
-            console.log('allumer');
-            console.log(this.user);
-            this.user.setLightState(1, { on: true });
-        })
-        $('.eteindre').click((data) => {
-            console.log('eteindre');
-            this.user.setLightState(1, { on: false });
-        })
+       
     }
 
 }
