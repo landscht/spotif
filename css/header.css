@@ -1,0 +1,181 @@
+.header {
+    position: relative;
+    width: 100vw;	
+    height: 600px;	
+  }
+  .header .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      transform:translate(-50%,-50%);
+      z-index: 5; 
+    padding: 1rem;
+  }
+  .header .left {
+    position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      transform:translate(-50%,-50%);
+      z-index: 5; 
+    padding: 1rem;
+  }
+  .header .right {
+    position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      transform:translate(-50%,-50%);
+      z-index: 5; 
+    padding: 1rem;
+  }
+  .header .scroll {
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    color: #fff;
+    font-size: 1.5rem;
+  }
+  /*=== Large devices (desktops, 992px and up) ===*/
+  @media (min-width: 992px) {
+  .header .center {
+    width: 50%;
+  }
+  .header .left {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 40%;
+    transform:translate(0, 0);
+    padding: 1rem;
+  }
+  .header .right {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: 40%;
+    transform:translate(0, 0);
+    padding: 1rem;
+  }
+  .delay {
+    animation-delay: 0.6s;
+  }
+  }
+  
+  /* =======================================
+   header#1
+  ========================================*/
+  #header1 {
+      background: #355c7d;
+    background:
+      /* gradient overlay */
+      linear-gradient(
+        to bottom,
+        rgba(203, 53, 107, 0.6), /* #cb356b */
+        rgba(189, 63, 50, 0.5) /* #bd3f32 */
+      ),
+      /* bottom image */
+      url('https://cdn.stocksnap.io/img-thumbs/960w/VPYPAS4FVT.jpg') no-repeat left top;
+    background-size: cover;  
+      z-index: 0; 
+  }
+  #header1 .caption {
+      text-align: center;
+    color: #fff;
+  }
+  #header1 .caption .title {
+      margin-bottom: 1.5rem;
+  } 
+  #header1 .caption .text {
+      margin-bottom: 1.5rem;
+  }
+  #header1 .caption .action {
+      margin-bottom: 1rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+      border-radius: 15px;
+  }
+
+  /* =======================================
+ header#2
+========================================*/
+#header2 {
+	background: #355c7d;
+  background:
+    linear-gradient(
+      rgba(53, 92, 125, 0.8), /* #355c7d */
+      rgba(108, 91, 123, 0.8), /* #6c5b7b */
+      rgba(192, 108, 123, 0.8) /* #c06c7b */
+    ),
+    url('https://cdn.stocksnap.io/img-thumbs/960w/LPPN6E2YK4.jpg') no-repeat left top;
+  background-size: cover;  
+	z-index: 0; /* bottom layout */
+}
+#header2 .caption {
+	z-index: 5; 
+  text-align: center;
+  color: #fff;
+}
+#header2 .caption .title {
+	margin-bottom: 1.5rem;
+}
+#header2 .caption .text {
+	margin-bottom: 1.5rem;
+}
+#header2 .caption .action {
+  display: flex;
+	margin-bottom: 1rem;
+	margin-left: 15%;
+  width: 70%;
+}
+/*=== Large devices (desktops, 992px and up) ===*/
+@media (min-width: 992px) {
+#header2 .caption {
+  text-align: left;
+}
+#header2 .caption .action {
+  display: flex;
+  margin-bottom: 1rem;
+  margin-left: 0%;
+  width: 80%;
+}
+}
+
+/*=== for demo only ===*/
+.demo-title {
+    text-align: center;
+    color: #808080;
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+  }
+  .demo-more {
+    text-align: center;
+    color: #808080;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+  }
+  .demo-more i {
+    color: #696969;
+  }
+  .update-note {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    background-color: rgb(33, 33, 33);
+    color: #fff;
+    border-radius: 10px;
+    padding: 0 15px;  
+  }
+  a {
+    text-decoration: underline;
+    color: #696969;
+    font-weight: 600;
+  }
+  a:hover {
+    color: #696969;
+  }
+  body {
+    overflow-x: hidden;
+  }

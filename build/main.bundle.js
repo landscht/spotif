@@ -546,7 +546,9 @@ var hash = auth.getHashParams();
 if (hash.access_token === undefined) {
   var scopes = 'user-read-private user-read-email user-modify-playback-state playlist-modify-public user-read-playback-state user-top-read';
   var url = "https://accounts.spotify.com/authorize?client_id=".concat(auth.client_id, "&redirect_uri=").concat(auth.redirect_uri, "&scope=").concat(scopes, "&response_type=token&state=123");
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.container').html('<h1>Se connecter à Spotif - test github</h1><button type="button" class="loggin btn btn-primary">Se connecter</button>');
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#header1').html("\n\t<div class=\"center\">\n\t\t<div class=\"caption animated bounceInDown\">\n\t\t\t<h2 class=\"title display-3\">Spotif.</h2>\n\t\t\t<p class=\"text\">Ici, retrouvez une autre fa\xE7on de g\xE9rer votre musique. Acc\xE8der \xE0 vos playlist et vos titres favories!</p>\t\n\t\t</div>\t\n\t</div>\n\t<!-- scroll-down -->\n\t<i class=\"scroll fa fa-angle-double-down\"></i>\n");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#header2').html("\n\t<div class=\"left\">\n\t\t<div class=\"caption\">\n\t\t\t<h2 class=\"title display-3 animated bounceInLeft\">Connectez vous.</h2>\n\t\t\t<p class=\"text animated bounceInLeft\">Spotif collecte vos donn\xE9es directement via l'api Spotify, seules les donn\xE9es n\xE9cessaire sont collect\xE9es et gard\xE9es. <a href=\"https://developer.spotify.com/discover/\">En savoir plus.</a></p>\n\t\t\t<button class=\"loggin btn btn-success\">Se connecter avec Spotify</button>\n\t\t</div>\t\n\t</div>\n    <i class=\"scroll fa fa-angle-double-down\"></i>");
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.footer').html("\n\t<p><i class=\"fa fa-users\"></i> Spotif was created by Tony Landschoot</p>\n\t<p><i class=\"fa fa-gift\"></i> my github <a href=\"https://github.com/kopanol\">kopanol</a></p>");
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.loggin').click(function (data) {
     window.location.replace(url);
   });

@@ -21,7 +21,28 @@ var hash = auth.getHashParams();
 if(hash.access_token === undefined) {
     let scopes = 'user-read-private user-read-email user-modify-playback-state playlist-modify-public user-read-playback-state user-top-read';
     let url = `https://accounts.spotify.com/authorize?client_id=${auth.client_id}&redirect_uri=${auth.redirect_uri}&scope=${scopes}&response_type=token&state=123`
-    $('.container').html('<h1>Se connecter à Spotif - test github</h1><button type="button" class="loggin btn btn-primary">Se connecter</button>');
+    $('#header1').html(`
+	<div class="center">
+		<div class="caption animated bounceInDown">
+			<h2 class="title display-3">Spotif.</h2>
+			<p class="text">Ici, retrouvez une autre façon de gérer votre musique. Accèder à vos playlist et vos titres favories!</p>	
+		</div>	
+	</div>
+	<!-- scroll-down -->
+	<i class="scroll fa fa-angle-double-down"></i>
+`);
+    $('#header2').html(`
+	<div class="left">
+		<div class="caption">
+			<h2 class="title display-3 animated bounceInLeft">Connectez vous.</h2>
+			<p class="text animated bounceInLeft">Spotif collecte vos données directement via l'api Spotify, seules les données nécessaire sont collectées et gardées. <a href="https://developer.spotify.com/discover/">En savoir plus.</a></p>
+			<button class="loggin btn btn-success">Se connecter avec Spotify</button>
+		</div>	
+	</div>
+    <i class="scroll fa fa-angle-double-down"></i>`);
+    $('.footer').html(`
+	<p><i class="fa fa-users"></i> Spotif was created by Tony Landschoot</p>
+	<p><i class="fa fa-gift"></i> my github <a href="https://github.com/kopanol">kopanol</a></p>`);
     $('.loggin').click((data) => {
         window.location.replace(url);
     })
