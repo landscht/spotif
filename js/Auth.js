@@ -7,7 +7,7 @@ export default class Auth {
     constructor() {
         this.client_id = '9b976141d3324f198766ee8e48aaadca';
         this.client_secret = '18e2cf36acbd4663b4e27c450aec82a0';
-        this.redirect_uri = 'https://kopanol.github.io/spotif';
+        this.redirect_uri = 'https://landscht.github.io/spotif';
     }
 
     getHashParams() {
