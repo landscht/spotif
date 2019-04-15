@@ -41,7 +41,7 @@ if(hash.access_token === undefined) {
 	</div>
     <i class="scroll fa fa-angle-double-down"></i>`);
     $('.footer').html(`
-	<p><i class="fa fa-users"></i> Spotif was created by Tony Landschoot le bg</p>
+	<p><i class="fa fa-users"></i> Spotif was created by Tony Landschoot</p>
 	<p><i class="fa fa-gift"></i> my github <a href="https://github.com/kopanol">kopanol</a></p>`);
     console.log(url);
     $('.loggin').click((data) => {
